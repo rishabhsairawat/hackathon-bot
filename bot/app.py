@@ -32,4 +32,5 @@ iface = gr.Interface(fn=chatbot,
                      title="The Codebreakers AI Chatbot")
 
 index = construct_index(os.environ["SOURCE_DIRECTORY"])
-iface.launch(share=True)
+# To create a public link, set `share=True`
+iface.launch(share=False)
