@@ -1,0 +1,6 @@
+venv
+venv/*
+flagged
+config.env
+.ruby-version
+index.json
