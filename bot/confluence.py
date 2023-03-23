@@ -37,19 +37,15 @@ def get_all_pages(confluence, space='EN'):
     # There is a limit of how many pages we can retrieve one at a time
     # so we retrieve 100 at a time and loop until we know we retrieved all of
     # them.
-    keep_going = True
     start = 0
     limit = 100 # This is just for starting with the project
     pages = []
     count = 0
-    while count < 100 and keep_going:
+    while count < 100:
         results = confluence.get_all_pages_from_space(space, start=start, limit=100, status=None, expand='body.storage', content_type='page')
         pages.extend(results)
         count += len(results)
-        if len(results) < limit:
-            keep_going = False
-        else:
-            start = start + limit
+        start = start + limit
     return pages
 
 def save_confluence_docs():
@@ -57,6 +53,8 @@ def save_confluence_docs():
     pages = get_all_pages(confluence, 'EN')
     for page in pages:
       page_id = page['id']
+      if page_id == 3094737 or page_id == '3094737':
+            continue
       # page_title = page['title']
       pdf_file_name = f'{page_id}.pdf'
       page_html = confluence.get_page_by_id(page_id, expand='body.storage')['body']['storage']['value']
